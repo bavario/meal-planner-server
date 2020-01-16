@@ -2,6 +2,8 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+let bodyParser = require('body-parser');
+let mongoose = require('mongoose');
 
 const indexRouter = require('./routes/index');
 const recipesRouter = require('./routes/recipes');
@@ -9,10 +11,20 @@ const recipesRouter = require('./routes/recipes');
 const app = express();
 
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Connect to Mongoose and set connection variable
+mongoose.connect('mongodb://localhost/resthub', { useNewUrlParser: true});
+var db = mongoose.connection;
+if(!db)
+    console.log("Error connecting db")
+else
+    console.log("Db connected successfully")
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -21,6 +33,6 @@ app.use((req, res, next) => {
 });
 
 app.use('/', indexRouter);
-app.use('/recieps', recipesRouter);
+app.use('/recipes', recipesRouter);
 
 module.exports = app;

@@ -1,12 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
-const db = require('../queries/recipes');
+const recipeController = '../controller/recipe';
 
-router.get('/', db.getRecipes);
-router.get('/:id', db.getRecipeById);
-router.post('/', db.createRecipe);
-router.put('/:id', db.updateRecipe);
-router.delete('/:id', db.deleteRecipe);
+router.route('/')
+    .get(recipeController.index)
+    .post(recipeController.new);
+
+router.route('/:recipe_id')
+    .get(recipeController.view)
+    .patch(recipeController.update)
+    .put(recipeController.update)
+    .delete(recipeController.delete);   
 
 module.exports = router;
