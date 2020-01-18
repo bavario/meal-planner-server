@@ -1,7 +1,10 @@
 // contactModel.js
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 // Setup schema
-var contactSchema = mongoose.Schema({
+const ingredientSchema = {};
+
+const recipeSchema = mongoose.Schema({
+    _id: mongoose.ObjectId,
     name: {
         type: String,
         required: true
@@ -12,16 +15,25 @@ var contactSchema = mongoose.Schema({
     },
     duration:  {
         type: Number,
+        default: '30',
         required: true
     },
-    phone: String,
+    image: String,
+    cookingCount: {
+        type: Number,
+        default: '0'
+    }, 
+    type: '',
+    ingredients: [ingredientSchema],
+    making: [],
     create_date: {
         type: Date,
         default: Date.now
     }
 });
 // Export Contact model
-var Contact = module.exports = mongoose.model('contact', contactSchema);
+const Recipe = module.exports = mongoose.model('recipe', recipeSchema);
+
 module.exports.get = function (callback, limit) {
-    Contact.find(callback).limit(limit);
+    Recipe.find(callback).limit(limit);
 }

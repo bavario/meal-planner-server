@@ -1,8 +1,9 @@
 // contactController.js
 // Import contact model
 Recipe = require('../models/recipe');
+
 // Handle index actions
-exports.index = (req, res) => {
+module.exports.index = function (req, res) {
     Recipe.get(function (err, recipes) {
         if (err) {
             res.json({
@@ -18,8 +19,9 @@ exports.index = (req, res) => {
     });
 };
 
+
 // Handle create contact actions
-exports.new = (req, res) => {
+module.exports.new = function (req, res) {
     const recipe = new Recipe();
     recipe.name = req.body.name ? req.body.name : recipe.name;
     
@@ -35,7 +37,7 @@ exports.new = (req, res) => {
 };
 
 // Handle view contact info
-exports.view = (req, res) => {
+module.exports.view = function (req, res){
     Recipe.findById(req.params.recipe_id, function (err, recipe) {
         if (err)
             res.send(err);
@@ -47,7 +49,7 @@ exports.view = (req, res) => {
 };
 
 // Handle update contact info
-exports.update = (req, res) => {
+module.exports.update = function (req, res) {
     Recipe.findById(req.params.recipe_id, function (err, recipe) {
         if (err)
             res.send(err);
@@ -68,7 +70,7 @@ exports.update = (req, res) => {
 };
 
 // Handle delete contact
-exports.delete = (req, res) => {
+module.exports.delete = function (req, res) {
     Recipe.remove({
         _id: req.params.recipe_id
     }, function (err, recipe) {
