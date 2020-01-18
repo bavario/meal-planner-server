@@ -14,13 +14,13 @@ const recipeSchema = mongoose.Schema({
         required: true
     },
     duration:  {
-        type: Number,
+        type: Int32,
         default: '30',
         required: true
     },
     image: String,
     cookingCount: {
-        type: Number,
+        type: Int32,
         default: '0'
     }, 
     type: '',
