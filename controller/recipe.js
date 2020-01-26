@@ -24,6 +24,12 @@ module.exports.index = function (req, res) {
 module.exports.new = function (req, res) {
     const recipe = new Recipe();
     recipe.name = req.body.name ? req.body.name : recipe.name;
+    recipe.desc = req.body.desc ? req.body.desc : recipe.desc;
+    recipe.duration = req.body.duration ? req.body.duration : recipe.duration;
+    recipe.cookingCount = 0;
+    recipe.type = req.body.type ? req.body.type : recipe.type;
+    recipe.making = req.body.making ? req.body.making : recipe.making;
+    recipe.create_date = new Date().toISOString();
     
     // save the contact and check for errors
     recipe.save(function (err) {
