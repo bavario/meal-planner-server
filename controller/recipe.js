@@ -1,6 +1,7 @@
 // contactController.js
 // Import contact model
 Recipe = require('../models/recipe');
+const mongoose = require('mongoose');
 
 // Handle index actions
 module.exports.index = function (req, res) {
@@ -22,7 +23,9 @@ module.exports.index = function (req, res) {
 
 // Handle create contact actions
 module.exports.new = function (req, res) {
-    const recipe = new Recipe();
+    const recipe = new Recipe({
+        _id: new mongoose.Types.ObjectId()
+    });
     recipe.name = req.body.name ? req.body.name : recipe.name;
     recipe.desc = req.body.desc ? req.body.desc : recipe.desc;
     recipe.duration = req.body.duration ? req.body.duration : recipe.duration;
@@ -33,10 +36,10 @@ module.exports.new = function (req, res) {
     
     // save the contact and check for errors
     recipe.save(function (err) {
-        // if (err)
-        //     res.json(err);
+        if (err)
+            res.json(err);
         res.json({
-            message: 'New contact created!',
+            message: 'New recipe created!',
             data: recipe
         });
     });
