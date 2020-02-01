@@ -1,8 +1,6 @@
 // contactModel.js
 const mongoose = require('mongoose');
 // Setup schema
-const ingredientSchema = {};
-
 const recipeSchema = mongoose.Schema({
     _id: mongoose.ObjectId,
     name: {
@@ -24,7 +22,20 @@ const recipeSchema = mongoose.Schema({
         default: '0'
     }, 
     type: '',
-    ingredients: [ingredientSchema],
+    ingredients: [{
+        name: {
+            type: String,
+            required: true,
+        },
+        unit: {
+            type: String,
+            required: true,
+        },
+        amount: {
+            type: Number,
+            required: true,
+        },
+    }],
     making: [],
     create_date: {
         type: Date,
