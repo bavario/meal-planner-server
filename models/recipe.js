@@ -1,8 +1,8 @@
 // contactModel.js
 const mongoose = require('mongoose');
 // Setup schema
-const recipeSchema = mongoose.Schema({
-    _id: mongoose.ObjectId,
+const recipeSchema = new mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
     name: {
         type: String,
         required: true
